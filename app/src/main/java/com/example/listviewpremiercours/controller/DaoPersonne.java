@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DaoPersonne {
     //On définit un ArrayList pour stocker les personnes
-    static ArrayList<Personne> list = new ArrayList<>();
+    static List<Personne> list = new ArrayList<>();
 
     public static void addPersonne(Personne personne) {
         list.add(personne);
@@ -17,7 +17,7 @@ public class DaoPersonne {
         list.remove(index);
     }
 
-    public static ArrayList<Personne> getAllPersonnes() {
+    public static List<Personne> getAllPersonnes() {
         return list;
     }
 

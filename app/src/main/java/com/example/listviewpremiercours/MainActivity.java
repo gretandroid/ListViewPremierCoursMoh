@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.listviewpremiercours.controller.DaoPersonne;
 import com.example.listviewpremiercours.model.Personne;
 
+import java.io.Serializable;
+
 public class MainActivity extends AppCompatActivity {
     public static final String LIST_PERSONNES = "personnes";
     public static final int OUT_OF_BOUND_INDEX = -1;
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,
                 MainActivityListView.class);
         intent.putExtra(MainActivity.LIST_PERSONNES,
-                DaoPersonne.getAllPersonnes());
+                (Serializable) DaoPersonne.getAllPersonnes());
         intentActivityResultLauncher.launch(intent);
     }
 
