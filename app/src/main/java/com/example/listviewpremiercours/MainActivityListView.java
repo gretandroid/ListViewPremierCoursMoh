@@ -17,20 +17,20 @@ import java.util.ArrayList;
 
 public class MainActivityListView extends AppCompatActivity {
     public static final String CURRENT_INDEX_PERSONNE = "current_index_personne";
-    ListView listView;
-    Personne personne;
-
     public static final String PERSONNE = "personne";
-    ArrayAdapter<Personne> personneArrayAdapter;
+
+    private Personne currentPersonne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_list_view);
-        listView = findViewById(R.id.listview);
+        ListView listView = findViewById(R.id.listview);
         Intent intent = getIntent();
         ArrayList<Personne> personnes = (ArrayList<Personne>) intent.getSerializableExtra(MainActivity.LIST_PERSONNES);
-        personneArrayAdapter = new ArrayAdapter<Personne>(this, android.R.layout.simple_list_item_1, personnes);
+        ArrayAdapter<Personne> personneArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                personnes);
         listView.setAdapter(personneArrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -39,20 +39,15 @@ public class MainActivityListView extends AppCompatActivity {
                                     View view,
                                     int index,
                                     long l) {
-                personne = DaoPersonne.getAllPersonnes().get(index);
-                Log.d(MainActivityListView.class.getSimpleName(), "setOnItemClickListener index = " + index);
-                Intent intent1 = new Intent();
+                currentPersonne = DaoPersonne.getAllPersonnes().get(index);
                 setResult(RESULT_OK,
-                        intent1.putExtra(PERSONNE, personne)
+                        new Intent().putExtra(PERSONNE, currentPersonne)
                                 .putExtra(CURRENT_INDEX_PERSONNE, index)
                 );
-                Log.d(MainActivityListView.class.getSimpleName(),
-                        "after finish() : " + intent1.getIntExtra(CURRENT_INDEX_PERSONNE, 99));
                 finish();
             }
         });
     }
-
 
     public void retour(View view) {
         finish();

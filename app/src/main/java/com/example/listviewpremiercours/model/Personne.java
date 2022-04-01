@@ -1,12 +1,20 @@
 package com.example.listviewpremiercours.model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Personne implements Serializable {
+
+    private static int counter = 0;
+    private static int idGenerator() {
+        return ++counter;
+    }
     private int id;
-    private String nom,prenom;
+    private String nom, prenom;
 
     public Personne(String nom, String prenom) {
+        this.id = idGenerator();
         this.nom = nom;
         this.prenom = prenom;
     }
@@ -35,12 +43,14 @@ public class Personne implements Serializable {
         this.prenom = prenom;
     }
 
+    @NonNull
     @Override
     public String toString() {
-        return "Personne{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                '}';
+        //noinspection StringBufferReplaceableByString
+        return new StringBuilder("Personne{")
+                .append("id=").append(id)
+                .append(", nom='").append(nom).append('\'')
+                .append(", prenom='").append(prenom).append('\'')
+                .append('}').toString();
     }
 }
